@@ -18,16 +18,18 @@ RUN set -x \
   ' \
   && DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y $buildDeps --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
-ADD . /opt/django/
-
 WORKDIR /opt/django
+
+ADD requirements.txt /opt/django/requirements.txt
+RUN pip3 install -r /opt/django/requirements.txt
+
+ADD . /opt/django/
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 RUN rm /etc/nginx/sites-enabled/default
 RUN ln -s /opt/django/django.conf /etc/nginx/sites-enabled/
 RUN ln -s /opt/django/supervisord.conf /etc/supervisor/conf.d/
 
-RUN pip install -r /opt/django/requirements.txt
 
 RUN apt-get clean
 RUN rm -rf /var/tmp

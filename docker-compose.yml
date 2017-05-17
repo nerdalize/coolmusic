@@ -1,18 +1,16 @@
 
-version: '2'
+backend:
+  build: .
+  restart: always
+  environment:
+    VIRTUAL_HOST: api.tnw.dev.nlze.nl,api.rock-on.space
+  links:
+   - db
 
-services:
-  backend:
-    build:
-      context: .
-    restart: always
-    links:
-     - db
-
-  db:
-    image: postgres:9.6-alpine
-    restart: always
-    environment:
-      POSTGRES_USER: coolmusic
-      POSTGRES_PASSWORD: qwerty
-      POSTGRES_DB: coolmusic
+db:
+  image: postgres:9.6-alpine
+  restart: always
+  environment:
+    POSTGRES_USER: coolmusic
+    POSTGRES_PASSWORD: qwerty
+    POSTGRES_DB: coolmusic
