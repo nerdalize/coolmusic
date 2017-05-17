@@ -1,0 +1,18 @@
+
+version: '2'
+
+services:
+  backend:
+    build:
+      context: .
+    restart: always
+    links:
+     - db
+
+  db:
+    image: postgres:9.6-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: coolmusic
+      POSTGRES_PASSWORD: qwerty
+      POSTGRES_DB: coolmusic
