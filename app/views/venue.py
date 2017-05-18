@@ -20,7 +20,11 @@ class VenueSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Venue
-        fields = ('name', 'lat', 'lng', 'events', 'description', 'device_id')
+        fields = (
+            'name', 'lat', 'lng', 'events',
+            'description', 'device_id',
+            'loudness', 'atmosphere', 'emoji'
+        )
 
 
 # ViewSets define the view behavior.
