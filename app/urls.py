@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
 
-from .views import UserViewSet, VenueViewSet
+from .views import UserViewSet, VenueViewSet, listening
 
 
 # Routers provide an easy way of automatically determining the URL conf.
@@ -29,5 +29,6 @@ router.register(r'venues', VenueViewSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
+    url(r'^listening/', listening),
     url(r'^api/', include('rest_framework.urls', namespace='rest_framework'))
 ]

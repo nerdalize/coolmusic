@@ -4,20 +4,23 @@ from rest_framework import serializers, viewsets
 
 
 class EventSerializer(serializers.ModelSerializer):
-    def to_representation(self, obj):
-        return obj.data
 
     class Meta:
         model = Event
+        fields = ('timestamp', 'data')
 
 
 # Serializers define the API representation.
 class VenueSerializer(serializers.ModelSerializer):
-    event_set = EventSerializer(many=True, read_only=True)
+    events = serializers.SerializerMethodField()
+
+    def get_events(self, obj):
+        events = Event.objects.filter(venue=obj).order_by('-timestamp')[:5]
+        return EventSerializer(events, many=True).data
 
     class Meta:
         model = Venue
-        fields = ('name', 'lat', 'lng', 'event_set')
+        fields = ('name', 'lat', 'lng', 'events', 'description')
 
 
 # ViewSets define the view behavior.

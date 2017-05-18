@@ -6,6 +6,7 @@ class Venue(models.Model):
     lat = models.FloatField()
     lng = models.FloatField()
     device_id = models.CharField(max_length=30)
+    description = models.CharField(max_length=300)
 
     def __str__(self):
         return "{}(venue)".format(self.name)
